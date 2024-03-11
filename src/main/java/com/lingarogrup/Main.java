@@ -5,6 +5,7 @@ import com.lingarogrup.exercise2.Exercise2;
 import com.lingarogrup.exercise3.Exercise3;
 import com.lingarogrup.exercise4.Exercise4;
 import com.lingarogrup.exercise5.Exercise5;
+import com.lingarogrup.exercise7.Exercise7;
 
 public class Main {
     public static void main(String[] args) {
@@ -23,6 +24,7 @@ public class Main {
         System.out.println(Exercise4.returnLetterOrderInAlphabet("c"));
         System.out.println();
         System.out.println(Exercise5.getLetterFromAlphabetByOrdinalPosition(1));
-
+        System.out.println();
+        System.out.println(Exercise7.convertChessNotationToCoordinates("g5"));
     }
 }
