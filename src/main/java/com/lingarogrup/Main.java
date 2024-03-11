@@ -2,6 +2,7 @@ package com.lingarogrup;
 
 import com.lingarogrup.exercise1.Exercise1;
 import com.lingarogrup.exercise2.Exercise2;
+import com.lingarogrup.exercise3.Exercise3;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,5 +15,7 @@ public class Main {
         Exercise2.exercise2();
         System.out.println();
         Exercise2.exercise2_1();
+        System.out.println();
+        System.out.println(Exercise3.getMealsForDays("friday, thursday, monday, saturday, tuesday"));
     }
 }
