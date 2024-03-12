@@ -3,6 +3,8 @@ package com.lingarogrup.exercise8;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ChessBoardTest {
@@ -55,5 +57,17 @@ class ChessBoardTest {
         board.move("c1", "d3");
         assertEquals("knight", board.retrieveByLocation("c1").toString(), "knight should remain on c1");
         assertEquals("pawn", board.retrieveByLocation("d3").toString(), "pawn should remain on d3");
+    }
+
+    @Test
+    public void canMoveC1KnightToEnemyOccupiedSquare() {
+        board.addPiece("c1", "knight", false);
+        ChessPiece whiteKnight = board.retrieveByLocation("c1");
+        board.addPiece("d3", "pawn", true);
+        ChessPiece blackPawn = board.retrieveByLocation("d3");
+        board.move("c1", "d3");
+        assertSame(whiteKnight, board.retrieveByLocation("d3"), "white knight should move to d3");
+        assertTrue(Arrays.asList(board.getWhitesCapturedPieces()).contains(blackPawn),
+                "black pawn should be moved to white's captured array");
     }
 }

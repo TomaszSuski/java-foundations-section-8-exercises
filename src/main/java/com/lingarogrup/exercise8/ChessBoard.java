@@ -1,7 +1,13 @@
 package com.lingarogrup.exercise8;
 
 public class ChessBoard {
-    ChessPiece[][] board = new ChessPiece[8][8];
+    private ChessPiece[][] board = new ChessPiece[8][8];
+
+    private ChessPiece[] whitesCapturedPieces = new ChessPiece[15];
+
+    private int whitesCaptureCount = 0;
+    private ChessPiece[] blacksCapturedPieces = new ChessPiece[15];
+    private int blacksCaptureCount = 0;
     public static int getFieldIndexFromLocation(String location) {
         return Character.codePointAt(location, 0) - 97;
     }
@@ -24,35 +30,60 @@ public class ChessBoard {
         return board[getFieldIndexFromLocation(location)][getRankIndexFromLocation(location)];
     }
 
-    public void move(String currentPosition, String newPosition) {
-        ChessPiece piece = retrieveByLocation(currentPosition);
-        if (checkMoveIsValid(currentPosition, newPosition)) {
-            removePiece(currentPosition);
-            setPieceOnBoard(piece, newPosition);
+    public void move(String currentLocation, String newLocation) {
+        if (!checkMoveIsValid(currentLocation, newLocation)) return;
+        ChessPiece piece = retrieveByLocation(currentLocation);
+        if (checkDestinationContainsEnemy(piece, newLocation)) {
+            ChessPiece enemy = retrieveByLocation(newLocation);
+            captureEnemy(enemy);
         }
+        removePiece(currentLocation);
+        setPieceOnBoard(piece, newLocation);
+    }
+
+    public ChessPiece[] getWhitesCapturedPieces() {
+        return whitesCapturedPieces;
+    }
+
+    public ChessPiece[] getBlacksCapturedPieces() {
+        return blacksCapturedPieces;
     }
 
     private void setNewPieceOnBoard(ChessPiece piece) {
         board[piece.getStartingField()][piece.getStartingRank()] = piece;
     }
 
-    private void setPieceOnBoard(ChessPiece piece, String newPosition) {
-        board[getFieldIndexFromLocation(newPosition)][getRankIndexFromLocation(newPosition)] = piece;
+    private void setPieceOnBoard(ChessPiece piece, String newLocation) {
+        board[getFieldIndexFromLocation(newLocation)][getRankIndexFromLocation(newLocation)] = piece;
     }
 
     private void removePiece(String location) {
         board[getFieldIndexFromLocation(location)][getRankIndexFromLocation(location)] = null;
     }
 
-    private boolean checkMoveIsValid(String currentPosition, String newPosition) {
-        ChessPiece pieceToMove = this.retrieveByLocation(currentPosition);
+    private boolean checkMoveIsValid(String currentLocation, String newLocation) {
+        ChessPiece pieceToMove = this.retrieveByLocation(currentLocation);
         if (pieceToMove == null) return false;
         String possibleMoves = pieceToMove.getPossibleMoves();
-        if (!possibleMoves.contains(newPosition)) return false;
-        ChessPiece destinationElement = retrieveByLocation(newPosition);
+        if (!possibleMoves.contains(newLocation)) return false;
+        ChessPiece destinationElement = retrieveByLocation(newLocation);
         if(destinationElement == null) return true;
-        String pieceColor = pieceToMove.isBlack() ? "black" : "white";
-        String destinationPieceColor = destinationElement.isBlack() ? "black" : "white";
-        return !pieceColor.equals(destinationPieceColor);
+        return checkDestinationContainsEnemy(pieceToMove, newLocation);
+    }
+    
+    private boolean checkDestinationContainsEnemy(ChessPiece pieceToMove, String destination) {
+        ChessPiece destinationElement = retrieveByLocation(destination);
+        if (destinationElement == null) return false;
+        return !pieceToMove.getColor().equals(destinationElement.getColor());
+    }
+
+    private void captureEnemy(ChessPiece enemy) {
+        if (enemy.isBlack()) {
+            whitesCapturedPieces[whitesCaptureCount] = enemy;
+            whitesCaptureCount++;
+        } else {
+            blacksCapturedPieces[blacksCaptureCount] = enemy;
+            blacksCaptureCount++;
+        }
     }
 }

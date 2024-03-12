@@ -11,6 +11,14 @@ public abstract class ChessPiece {
         this.isBlack = isBlack;
     }
 
+    public abstract String toString();
+
+    public abstract String getPossibleMoves();
+
+    public String getColor() {
+        return isBlack ? "black" : "white";
+    }
+
     protected int getStartingField() {
         return startingField;
     }
@@ -19,11 +27,7 @@ public abstract class ChessPiece {
         return startingRank;
     }
 
-    public abstract String toString();
-
-    public abstract String getPossibleMoves();
-
-    public boolean isBlack() {
+    protected boolean isBlack() {
         return isBlack;
     }
 }

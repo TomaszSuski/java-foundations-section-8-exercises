@@ -13,18 +13,18 @@ public class Pawn extends ChessPiece {
     @Override
     public String getPossibleMoves() {
         String output;
-        String forwardField = Character.toString(this.getStartingField() + 97);
-        String forwardRank = this.isBlack() ? String.valueOf(7 - this.getStartingRank()) : String.valueOf(9 - this.getStartingRank());
-        String fieldLeft = Character.toString(this.getStartingField() + 96);
-        String fieldRight = Character.toString(this.getStartingField() + 98);
+        String forwardField = Character.toString(getStartingField() + 97);
+        String forwardRank = isBlack() ? String.valueOf(7 - getStartingRank()) : String.valueOf(9 - getStartingRank());
+        String fieldLeft = Character.toString(getStartingField() + 96);
+        String fieldRight = Character.toString(getStartingField() + 98);
         String forward = forwardField + forwardRank;
         String diagonallyRight = fieldRight + forwardRank;
         String diagonallyLeft = fieldLeft + forwardRank;
 
         output = String.format("%s, %s. %s", forward, diagonallyRight, diagonallyLeft);
         if (isOnTheStartingPosition()) {
-            String possibleRankTwoSquare = this.isBlack() ?
-                    String.valueOf(6 - this.getStartingRank()) : String.valueOf(10 - this.getStartingRank());
+            String possibleRankTwoSquare = isBlack() ?
+                    String.valueOf(6 - getStartingRank()) : String.valueOf(10 - getStartingRank());
             String forwardTwoSquare = forwardField + possibleRankTwoSquare;
             output += String.format(", %s", forwardTwoSquare);
         }
@@ -33,12 +33,12 @@ public class Pawn extends ChessPiece {
     }
 
     private boolean isOnTheStartingPosition() {
-        int startingRank = this.isBlack() ? 1 : 6;
-        return this.getStartingRank() == startingRank;
+        int startingRank = isBlack() ? 1 : 6;
+        return getStartingRank() == startingRank;
     }
 
     private boolean isOnTheLastRank() {
-        int lastRank = this.isBlack() ? 7 : 0;
-        return this.getStartingRank() == lastRank;
+        int lastRank = isBlack() ? 7 : 0;
+        return getStartingRank() == lastRank;
     }
 }
