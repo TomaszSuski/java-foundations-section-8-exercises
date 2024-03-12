@@ -31,5 +31,26 @@ class PawnTest {
         assertEquals("", possibleMoves3, "should have no ability to move");
     }
 
+    @Test
+    public void pawnCanMoveTwoForwardOnFirstMove() {
+        board.addPiece("a2", "pawn");
+        ChessPiece pawn = board.retrieveByLocation("a2");
+        String possibleMoves = pawn.getPossibleMoves();
+        assertEquals("a4, a3", possibleMoves, "should be able to move both one and two squares forward");
+    }
 
+    @Test
+    public void pawnCanNotMoveTwoAfterFirstMove() {
+        board.addPiece("a3", "pawn");
+        ChessPiece pawn = board.retrieveByLocation("a3");
+        String possibleMoves = pawn.getPossibleMoves();
+        boolean canMoveTwoSquares = possibleMoves.contains("a5");
+        assertTrue(!canMoveTwoSquares);
+
+        board.addPiece("a4", "pawn");
+        ChessPiece pawn2 = board.retrieveByLocation("a4");
+        String possibleMoves2 = pawn2.getPossibleMoves();
+        boolean canMoveTwoSquares2 = possibleMoves2.contains("a6");
+        assertTrue(!canMoveTwoSquares2);
+    }
 }
