@@ -25,9 +25,8 @@ public class ChessBoard {
     }
 
     public void move(String currentPosition, String newPosition) {
-        ChessPiece piece = this.retrieveByLocation(currentPosition);
-        String possibleMoves = piece.getPossibleMoves();
-        if (possibleMoves.contains(newPosition)) {
+        ChessPiece piece = retrieveByLocation(currentPosition);
+        if (checkMoveIsValid(currentPosition, newPosition)) {
             removePiece(currentPosition);
             setPieceOnBoard(piece, newPosition);
         }
@@ -43,5 +42,17 @@ public class ChessBoard {
 
     private void removePiece(String location) {
         board[getFieldIndexFromLocation(location)][getRankIndexFromLocation(location)] = null;
+    }
+
+    private boolean checkMoveIsValid(String currentPosition, String newPosition) {
+        ChessPiece pieceToMove = this.retrieveByLocation(currentPosition);
+        if (pieceToMove == null) return false;
+        String possibleMoves = pieceToMove.getPossibleMoves();
+        if (!possibleMoves.contains(newPosition)) return false;
+        ChessPiece destinationElement = retrieveByLocation(newPosition);
+        if(destinationElement == null) return true;
+        String pieceColor = pieceToMove.isBlack() ? "black" : "white";
+        String destinationPieceColor = destinationElement.isBlack() ? "black" : "white";
+        return !pieceColor.equals(destinationPieceColor);
     }
 }
