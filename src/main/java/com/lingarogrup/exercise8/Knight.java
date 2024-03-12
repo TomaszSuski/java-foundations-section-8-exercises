@@ -9,4 +9,9 @@ public class Knight extends ChessPiece {
     public String toString() {
         return "knight";
     }
+
+    @Override
+    public String getPossibleMoves() {
+        return null;
+    }
 }

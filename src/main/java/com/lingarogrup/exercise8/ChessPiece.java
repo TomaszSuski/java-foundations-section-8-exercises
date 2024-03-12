@@ -18,4 +18,6 @@ public abstract class ChessPiece {
     }
 
     public abstract String toString();
+
+    public abstract String getPossibleMoves();
 }
