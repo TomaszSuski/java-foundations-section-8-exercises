@@ -2,12 +2,12 @@ package com.lingarogrup.exercise8;
 
 public class ChessBoard {
     ChessPiece[][] board = new ChessPiece[8][8];
-    public void addPiece(String location, String piece) {
+    public void addPiece(String location, String piece, boolean isBlack) {
         if ("pawn".equals(piece)) {
-            Pawn pawn = new Pawn(location);
+            Pawn pawn = new Pawn(location, isBlack);
             setPieceOnBoard(pawn);
         } else if ("knight".equals(piece)) {
-            Knight knight = new Knight(location);
+            Knight knight = new Knight(location, isBlack);
             setPieceOnBoard(knight);
         }
     }

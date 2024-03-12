@@ -1,8 +1,8 @@
 package com.lingarogrup.exercise8;
 
 public class Pawn extends ChessPiece {
-    public Pawn(String location) {
-        super(location);
+    public Pawn(String location, boolean isBlack) {
+        super(location, isBlack);
     }
 
     @Override
@@ -14,7 +14,7 @@ public class Pawn extends ChessPiece {
     public String getPossibleMoves() {
         String output;
         String possibleField = Character.toString(this.getField() + 97);
-        String possibleRank = String.valueOf(9 - this.getRank());
+        String possibleRank = this.isBlack() ? String.valueOf(7 - this.getRank()) : String.valueOf(9 - this.getRank());
         String fieldLeft = Character.toString(this.getField() + 96);
         String fieldRight = Character.toString(this.getField() + 98);
         String forward = possibleField + possibleRank;
@@ -23,7 +23,8 @@ public class Pawn extends ChessPiece {
 
         output = String.format("%s, %s. %s", forward, diagonallyRight, diagonallyLeft);
         if (isOnTheStartingPosition()) {
-            String possibleRankTwoSquare = String.valueOf(10 - this.getRank());
+            String possibleRankTwoSquare = this.isBlack() ?
+                    String.valueOf(6 - this.getRank()) : String.valueOf(10 - this.getRank());
             String forwardTwoSquare = possibleField + possibleRankTwoSquare;
             output += String.format(", %s", forwardTwoSquare);
         }
@@ -32,10 +33,12 @@ public class Pawn extends ChessPiece {
     }
 
     private boolean isOnTheStartingPosition() {
-        return this.getRank() == 6;
+        int startingRank = this.isBlack() ? 1 : 6;
+        return this.getRank() == startingRank;
     }
 
     private boolean isOnTheLastRank() {
-        return this.getRank() == 0;
+        int lastRank = this.isBlack() ? 7 : 0;
+        return this.getRank() == lastRank;
     }
 }

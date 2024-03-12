@@ -16,14 +16,14 @@ class ChessBoardTest {
 
     @Test
     public void canAddPawn(){
-        board.addPiece("a1", "pawn");
+        board.addPiece("a1", "pawn", false);
         ChessPiece piece = board.retrieveByLocation("a1");
         assertEquals("pawn", piece.toString());
     }
 
     @Test
     public void canAddKnight(){
-        board.addPiece("a1", "knight");
+        board.addPiece("a1", "knight", false);
         ChessPiece piece = board.retrieveByLocation("a1");
         assertEquals("knight", piece.toString());
     }

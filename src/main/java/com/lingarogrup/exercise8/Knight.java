@@ -1,8 +1,8 @@
 package com.lingarogrup.exercise8;
 
 public class Knight extends ChessPiece {
-    public Knight(String location) {
-        super(location);
+    public Knight(String location, boolean isBlack) {
+        super(location, isBlack);
     }
 
     @Override
