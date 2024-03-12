@@ -12,6 +12,25 @@ public class Knight extends ChessPiece {
 
     @Override
     public String getPossibleMoves() {
-        return null;
+        String output;
+        String northByTwoSquares = String.valueOf(10 - this.getRank());
+        String northByOneSquare = String.valueOf(9 - this.getRank());
+        String southByTwoSquares = String.valueOf(6 - this.getRank());
+        String southByOneSquare = String.valueOf(7 - this.getRank());
+        String eastByTwoSquares = Character.toString(this.getField() + 99);
+        String eastByOneSquare = Character.toString(this.getField() + 98);
+        String westByTwoSquares =  Character.toString(this.getField() + 95);
+        String westByOneSquare = Character.toString(this.getField() + 96);
+        String northEast = eastByOneSquare + northByTwoSquares;
+        String northWest = westByOneSquare + northByTwoSquares;
+        String eastNorth = eastByTwoSquares + northByOneSquare;
+        String eastSouth = eastByTwoSquares + southByOneSquare;
+        String westNorth = westByTwoSquares + northByOneSquare;
+        String westSouth = westByTwoSquares + southByOneSquare;
+        String southEast = eastByOneSquare + southByTwoSquares;
+        String southWest = westByOneSquare + southByTwoSquares;
+        output = String.format("%s, %s, %s, %s, %s, %s, %s, %s",
+                northEast, northWest, eastNorth, eastSouth, westNorth, westSouth, southEast, southWest);
+        return output;
     }
 }
