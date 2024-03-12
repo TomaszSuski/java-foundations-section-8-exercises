@@ -1,22 +1,22 @@
 package com.lingarogrup.exercise8;
 
 public abstract class ChessPiece {
-    private int field;
-    private int rank;
+    private final int startingField;
+    private final int startingRank;
     private final boolean isBlack;
 
     public ChessPiece(String location, boolean isBlack) {
-        field = Character.codePointAt(location, 0) - 97;
-        rank = 8 - Integer.parseInt(location.substring(1));
+        startingField = ChessBoard.getFieldIndexFromLocation(location);
+        startingRank = ChessBoard.getRankIndexFromLocation(location);
         this.isBlack = isBlack;
     }
 
-    protected int getField() {
-        return field;
+    protected int getStartingField() {
+        return startingField;
     }
 
-    protected int getRank() {
-        return rank;
+    protected int getStartingRank() {
+        return startingRank;
     }
 
     public abstract String toString();

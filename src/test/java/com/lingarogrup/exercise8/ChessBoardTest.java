@@ -27,4 +27,24 @@ class ChessBoardTest {
         ChessPiece piece = board.retrieveByLocation("a1");
         assertEquals("knight", piece.toString());
     }
+
+    @Test
+    public void canMoveC1KnightToD3() {
+        board.addPiece("c1", "knight", false);
+        ChessPiece knight = board.retrieveByLocation("c1");
+        assertNotNull(knight, "should contain knight on c1");
+        board.move("c1", "d3");
+        assertNull(board.retrieveByLocation("c1"), "square c1 should now be empty");
+        assertEquals("knight", board.retrieveByLocation("d3").toString(), "square d3 should now contain knight");
+    }
+
+    @Test
+    public void canNotMoveC1KnightToInvalidSquare() {
+        board.addPiece("c1", "knight", false);
+        ChessPiece knight = board.retrieveByLocation("c1");
+        assertNotNull(knight, "should contain knight on c1");
+        board.move("c1", "d4");
+        assertNull(board.retrieveByLocation("d4"), "square d4 should still be empty");
+        assertEquals("knight", board.retrieveByLocation("c1").toString(), "square c1 should still contain knight");
+    }
 }
