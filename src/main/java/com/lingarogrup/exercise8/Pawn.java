@@ -12,14 +12,20 @@ public class Pawn extends ChessPiece {
 
     @Override
     public String getPossibleMoves() {
+        String output;
         String possibleField = Character.toString(this.getField() + 97);
         String possibleRank = String.valueOf(9 - this.getRank());
-        String possibleRankTwoSquare = String.valueOf(10 - this.getRank());
-        String output = null;
+        String fieldLeft = Character.toString(this.getField() + 96);
+        String fieldRight = Character.toString(this.getField() + 98);
+        String forward = possibleField + possibleRank;
+        String diagonallyRight = fieldRight + possibleRank;
+        String diagonallyLeft = fieldLeft + possibleRank;
+
+        output = String.format("%s, %s. %s", forward, diagonallyRight, diagonallyLeft);
         if (isOnTheStartingPosition()) {
-            output = String.format("%s%s, %s%s", possibleField, possibleRankTwoSquare, possibleField, possibleRank);
-        } else {
-                output = possibleField + possibleRank;
+            String possibleRankTwoSquare = String.valueOf(10 - this.getRank());
+            String forwardTwoSquare = possibleField + possibleRankTwoSquare;
+            output += String.format(", %s", forwardTwoSquare);
         }
         if (isOnTheLastRank()) output = "";
         return output;
